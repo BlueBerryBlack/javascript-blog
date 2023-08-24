@@ -39,14 +39,6 @@ function titleClickHandler(event){
       console.log('targetArticle',targetArticle);
 }
 
-const links = document.querySelectorAll('.titles a');
-
-for(let link of links){
-  link.addEventListener('click', titleClickHandler);
-}
-
-
-
 const optArticleSelector = '.post',
 optTitleSelector = '.post-title',
 optTitleListSelector = '.titles';
@@ -79,10 +71,15 @@ function generateTitleLinks() {
   /*insert link into title List*/
 
   html = html + linkHTML;
-  
   }
 
   titleList.innerHTML = html;
+
+  const links = document.querySelectorAll('.titles a');
+
+  for(let link of links){
+  link.addEventListener('click', titleClickHandler);
+}
 
 } 
 
