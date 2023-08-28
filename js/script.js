@@ -214,9 +214,11 @@ function generateAuthors(){
     const articleAuthors = article.getAttribute('data-author');
     console.log('articleAuthors', articleAuthors);
 
+    /*find the author from the title element*/
+    const authorTitle = article.querySelector('.post-author').innerHTML;
+      
     /* generate HTML of the link */
-    
-    const linkHTML = '<li><a href="#author-' + articleAuthors + '">'+ articleAuthors +'</a></li>';
+    const linkHTML = '<li><a href="#author-' + articleAuthors + '">'+ authorTitle +'</a></li>';
     console.log('linkHTML',linkHTML);
  
     /* add generated code to html variable */
@@ -274,11 +276,26 @@ function authorClickHandler(event){
 
   /* execute function "generateTitleLinks" with article selector as argument */
   generateTitleLinks('[data-author="' + author + '"]');
-
-
 }
 authorClickHandler();
 
+function addClickListenersToAuthors() {
+  /* find all links to authors */
+  const LinksAuthor = document.querySelectorAll('.post-author');
+
+  /* START LOOP: for each link */
+  for(let link of LinksAuthor){
+
+    /* add authorClickHandler as event listener for that link */
+
+    link.addEventListener('click', titleClickHandler);
+ 
+  /* END LOOP: for each link */
+  }
+
+
+}
+addClickListenersToAuthors();
 
 
 
