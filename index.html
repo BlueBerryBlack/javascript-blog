@@ -196,26 +196,7 @@
               </ul>
               <h2 class="section-title">Authors</h2>
               <ul class="list authors">
-                <li>
-                  <a href="#">
-                    <span class="author-name"></span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <span class="author-name"></span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <span class="author-name"></span>
-                  </a>
-                </li>
-                <li>
-                  <a href="#">
-                    <span class="author-name"></span>
-                  </a>
-                </li>
+               
               </ul>
             </aside>
           </main>
@@ -226,16 +207,16 @@
         <li><a href="#{{ id }}"><span>{{ title }}</span></a></li>
       </script>
 
-      <script id="template-tags-link" type="text/x-handlebars-template">
-        <li><a href="#{{ id }}"><span>{{ tags }}</span></a></li>
+      <script id="template-data-tags" type="text/x-handlebars-template">
+        <li><a href="#{{ id }}"><span>{{ title }}</span></a></li>
       </script>
 
       <script id="template-data-author" type="text/x-handlebars-template">
-        <li><a href="#{{ id }}"><span>{{ author }}</span></a></li>
+        <li><a href="#{{ id }}"><span>{{ title }}</span></a></li>
       </script>
 
       <script id="template-tag-cloud-link" type="text/x-handlebars-template">
-        {{#each tags}}
+        {{#each className}}
         <li>{{ tag }}</li>
         {{/each}}
       </script>

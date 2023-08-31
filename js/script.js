@@ -2,9 +2,11 @@
 
 const templates = {
   articleLink: Handlebars.compile(document.querySelector('#template-article-link').innerHTML),
-  tagsLink: Handlebars.compile(document.querySelector('#template-tags-link').innerHTML),
-  authorsLink: Handlebars.compile(document.querySelector('#template-data-author').innerHTML)
-}
+  tagLink: Handlebars.compile(document.querySelector('#template-data-tags').innerHTML),
+  authorsLink: Handlebars.compile(document.querySelector('#template-data-author').innerHTML),
+  tagCloudLink: Handlebars.compile(document.querySelector('template-tag-cloud-link').innerHTML),
+  authorCloudLink: Handlebars.compile(document.querySelector('template-author-cloud-link').innerHTML)
+};
 
 function titleClickHandler(event){
   event.preventDefault();
@@ -164,6 +166,10 @@ function generateTags(){
       const linkHTML = '<li><a href="#tag-' + tag + '"><span>'+ tag +'</span></a></li>';
       console.log('linkHTML', linkHTML);
 
+      //Handlebars
+      //const linkHTMLData = {id: tag, title: tag};
+      //const linkHTML = templates.tagLink(linkHTMLData);
+
       /* add generated code to html variable */
       html = html + linkHTML;
 
@@ -191,10 +197,21 @@ function generateTags(){
   //NEW create variable for all links HTML code
   let allTagsHTML = '';
 
+  //Handlebars
+  //const allTagsData = {tags: []};
+
   //NEW start loop for each tag in allTags
   for (let tag in allTags){
     //NEW generate code of a link and add it to allTagsHTML
-    allTagsHTML += tagLinkHTML
+    allTagsHTML += tagLinkHTML;
+
+    //Handlebars
+    /*allTagsData.tags.push({
+  tag: tag,
+  count: allTags[tag],
+  className: calculateTagClass(allTags[tag], tagsParams)
+});
+*/
     //allTagsHTML += '<li><a href="#tag-' + tag + '"><span>' + tag +' (' + allTags[tag] + ')' + '</span></a></li>';
     const tagLinkHTML = '<li><a href="#tag-' + calculateTagClass + '"><span>' + tag + (allTags[tag], tagsParams) + '</span></a></li>';
     // const tagLinkHTML = calculateTagClass + (allTags[tag], tagsParams) ;
@@ -206,6 +223,8 @@ function generateTags(){
   }
   // NEW add html form allTagsHTML to tagList
   tagList.innerHTML = allTagsHTML; 
+  //Handlebars
+  //tagList.innerHTML = templates.tagCloudLink(allTagsData);
 }
 
 generateTags();
@@ -293,14 +312,20 @@ function generateAuthors (){
     const linkHTML = '<li><a href="#author-' + articleAuthor + '"><span>'+ articleAuthor +'</span></a></li>';
     console.log('linkHTML',linkHTML);
 
+    //Handlebars
+    //const linkHTMLData = {id: articleAuthor, title: articleAuthor};
+    //const linkHTML = templates.authorsLink(linkHTMLData);
+
     /* add generated code to html variable */
     html = html + linkHTML;
     //NEW check if this link is not already in allAuthors
-    if(allAuthors.indexOf(linkHTML) == -1){
+    if(!allAuthors.hasOwnProperty(author)){
       //NEW add generatde code to allAuthors array
-      allAuthors.push(linkHTML);
+      allAuthors[author] = 1;
+    } else {
+      allAuthors[author]++;
     }
-
+      
     /* insert HTML of all the links into the tags wrapper */
     author.innerHTML = html;
 
@@ -310,8 +335,32 @@ function generateAuthors (){
   const authorsList = document.querySelector(optAuthorsListSelector);
 
   //NEW add html from allAuthors to authorsList
-  authorsList.innerHTML = allAuthors.join(' ');
+  //authorsList.innerHTML = allAuthors.join(' ');
+
+  //NEW created new variable for all links html code
+  let allAuthorsHTML = '';
+  //Handlebars
+  // let allAutgorsData = {author:[]};
+  //NEW start loop for each authors in allAuthors
+  for (let author in allAuthors){
+  //NEW generated code of a link and add it to allAuthorsHtml
+    allAuthorsHTML += author + ' (' + allAuthors[author] + ') ';
+    
+    /*Handlebars
+    allAutgorsData.author.push({
+    tag: author,
+
+});
+*/
+
+  //NEW END LOOP for each authors in allAuthors
+  }
+  //NEW add html from allTagsHTML to tagList
+  authorsList.innerHTML = allAuthorsHTML;
+  //Handlebars
+  /*authorsList.innerHTML = templates.authorCloudLink(allAutgorsData);
 }
+
 generateAuthors ();
 
 function authorClickHandler(event){
@@ -363,6 +412,5 @@ function addClickListenersToAuthor(){
   /* END LOOP: for each link */
   }
 }
-
 addClickListenersToAuthor();
 
